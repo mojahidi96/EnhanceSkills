@@ -8,3 +8,11 @@ var averageRating = listOfMovies.map(item=>item.imdbRating).reduce((a,b)=> parse
 
 ---Functional Programming: Sort an Array Alphabetically using the sort Method--
     arr.sort((a,b)=>a>b)
+
+---Combine an Array into a String Using the join Method---
+ return str.split(/\W/).join(' ')
+
+ ---The every method works with arrays to check if every element passes a particular test. It returns a Boolean value - true if all values meet the criteria, false if not.---
+ arr.every(x=>x>0)
+
+ 
