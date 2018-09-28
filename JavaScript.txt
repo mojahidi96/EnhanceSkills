@@ -15,4 +15,25 @@ var averageRating = listOfMovies.map(item=>item.imdbRating).reduce((a,b)=> parse
  ---The every method works with arrays to check if every element passes a particular test. It returns a Boolean value - true if all values meet the criteria, false if not.---
  arr.every(x=>x>0)
 
- 
+---Use the some Method to Check that Any Elements in an Array Meet a Criteria---
+The some method works with arrays to check if any element passes a particular test. It returns a Boolean value - true if any of the values meet the criteria, false if not.
+      return arr.some(x => x > 0)
+
+---We'll pass you an array of two numbers. Return the sum of those two numbers plus the sum of all the numbers between them.---
+      function sumAll(arr = [5, 10]) {
+  return Array.from({length:Math.max(...arr)},(v,k)=>k+1).splice(Math.min(...arr)-1).reduce((a,b)=>a+b);
+}
+
+---Compare two arrays and return a new array with any items only found in one of the two given arrays, but not both. In other words, return the symmetric difference of the two arrays.---
+function diffArray(arr1, arr2) {
+  return [
+    ...diff(arr1, arr2),
+    ...diff(arr2, arr1)
+  ];
+  function diff(a, b) {
+    return a.filter(x => !b.includes(x))
+  }
+}
+
+--- Write a function that takes two or more arrays and returns a new array of unique values in the order of the original provided arrays.---
+return [... new Set([].concat(...arr))];
