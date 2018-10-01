@@ -1,0 +1,49 @@
+Q1.What are different ways to create objects?
+You can create Object by
+object literals
+Object.create
+constructors
+
+Q2.What is the default value of a constructor’s prototype?
+A plain, empty object that derives from Object.prototype is the default value of a constructor’s prototype
+
+Q3.List some benefits of JSON over XML?
+It is faster and lighter than XML as on the wire data format
+XML data is typeless while JSON objects are typed
+JSON types: Number, Array, Boolean, String
+XML data are all string
+Data is readily available as JSON object is in your JavaScript
+Fetching values is as simple as reading from an object property in your JavaScript code
+
+Q4.What is the difference between JSON and JSONP?
+JSON: JSON is a simple data format used for communication medium between different systems
+JSONP: It is a methodology for using that format with cross-domain ajax requests while not being affected by same origin policy issue.
+
+Q5.Who is the Father of JSON and What is the scripting language JSON is based on?
+Douglas Crockford called as the Father of JSON. JSON is based on ECMAScript.
+
+Q7. What are natively supported JSON types?
+Following data types are natively supported in JSON.
+Numbers: Integer, float or Double
+String: string of Unicode characters, must be rapped into double quotes “”
+Boolean: True or false
+Array: ordered list of 0 or more values
+Objects : An unordered collection key/ value pairs
+Null: An Empty value
+
+Q8.What is BSON?
+BSON is the superset of JSON, which used by MongoDB.BSON supports the embedding of documents and arrays within other documents and arrays. BSON also contains extensions that allow representation of data types that are not part of the JSON spec.
+
+Q10.What JS-specific properties are skipped by JSON.stringify method?
+Following JS-specific properties are skipped by JSON.stringify method
+Function properties (methods).
+Symbolic properties.
+Properties that store undefined.
+
+Q11.What is JSON? For what is used for?
+JSON (JavaScript Object Notation) is a data storage and communication format based on key-value pair of JavaScript object literals. It is a lightweight text-based open standard designed for human-readable data interchange which is derived from the JavaScript programming language for representing simple data structures and associative arrays, called objects.
+In JSON
+
+all property names are surrounded by double quotes.
+values are restricted to simple data: no function calls, variables, comments, or computations.
+JSON is used for communication between javascript and serverside technologies.
