@@ -47,3 +47,12 @@ In JSON
 all property names are surrounded by double quotes.
 values are restricted to simple data: no function calls, variables, comments, or computations.
 JSON is used for communication between javascript and serverside technologies.
+
+Q13.List types Natively supported by JSON?
+JSON supports Objects, Arrays, Primitives (strings, numbers, boolean values (true/false), null) data types.
+
+Q14.What does Object.create do?
+Object.create creates a new object with the specified prototype object and properties.
+
+Q15. What does hasOwnProperty method do?
+It returns true if the property was set on an actual object rather than inherited.
