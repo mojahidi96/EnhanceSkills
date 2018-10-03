@@ -1,0 +1,68 @@
+Connections
+You can connect to MongoDB with the mongoose.connect() method.
+
+mongoose.connect('mongodb://localhost:27017/myapp');
+This is the minimum needed to connect the myapp database running locally on the default port (27017). If connecting fails on your machine, try using 127.0.0.1 instead of localhost.
+
+You can also specify several more parameters in the uri:
+
+mongoose.connect('mongodb://username:password@host:port/database?options...');
+
+Operation Buffering
+Mongoose lets you start using your models immediately, without waiting for mongoose to establish a connection to MongoDB.
+
+mongoose.connect('mongodb://localhost:27017/myapp');
+var MyModel = mongoose.model('Test', new Schema({ name: String }));
+// Works
+MyModel.findOne(function(error, result) { /* ... */ });
+That's because mongoose buffers model function calls internally. This buffering is convenient, but also a common source of confusion. Mongoose will not throw any errors by default if you use a model without connecting.
+
+var MyModel = mongoose.model('Test', new Schema({ name: String }));
+// Will just hang until mongoose successfully connects
+MyModel.findOne(function(error, result) { /* ... */ });
+
+setTimeout(function() {
+  mongoose.connect('mongodb://localhost:27017/myapp');
+}, 60000);
+To disable buffering, turn off the bufferCommands option on your schema. If you have bufferCommands on and your connection is hanging, try turning bufferCommands off to see if you haven't opened a connection properly. You can also disable bufferCommands globally:
+
+mongoose.set('bufferCommands', false);
+
+Options
+The connect method also accepts an options object which will be passed on to the underlying MongoDB driver.
+
+mongoose.connect(uri, options);
+
+Example:
+
+const options = {
+  useNewUrlParser: true,
+  autoIndex: false, // Don't build indexes
+  reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
+  reconnectInterval: 500, // Reconnect every 500ms
+  poolSize: 10, // Maintain up to 10 socket connections
+  // If not connected, return errors immediately rather than waiting for reconnect
+  bufferMaxEntries: 0,
+  connectTimeoutMS: 10000, // Give up initial connection after 10 seconds
+  socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+  family: 4 // Use IPv4, skip trying IPv6
+};
+mongoose.connect(uri, options);
+
+Callback
+The connect() function also accepts a callback parameter and returns a promise.
+
+mongoose.connect(uri, options, function(error) {
+  // Check error in initial connection. There is no 2nd param to the callback.
+});
+
+// Or using promises
+mongoose.connect(uri, options).then(
+  () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
+  err => { /** handle initial connection error */ }
+);
+
+A note about keepAlive
+For long running applications, it is often prudent to enable keepAlive with a number of milliseconds. Without it, after some period of time you may start to see "connection closed" errors for what seems like no reason. If so, after reading this, you may decide to enable keepAlive:
+
+mongoose.connect(uri, { keepAlive: true, keepAliveInitialDelay: 300000 });

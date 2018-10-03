@@ -1,0 +1,105 @@
+Models
+Models are fancy constructors compiled from Schema definitions. An instance of a model is called a document. Models are responsible for creating and reading documents from the underlying MongoDB database.
+
+Compiling your first model
+var schema = new mongoose.Schema({ name: 'string', size: 'string' });
+var Tank = mongoose.model('Tank', schema);
+The first argument is the singular name of the collection your model is for. Mongoose automatically looks for the plural version of your model name. Thus, for the example above, the model Tank is for the tanks collection in the database. The .model() function makes a copy of schema. Make sure that you've added everything you want to schema before calling .model()!
+
+Constructing Documents
+An instance of a model is called a document. Creating them and saving to the database is easy.
+
+var Tank = mongoose.model('Tank', yourSchema);
+
+var small = new Tank({ size: 'small' });
+small.save(function (err) {
+  if (err) return handleError(err);
+  // saved!
+});
+
+// or
+
+Tank.create({ size: 'small' }, function (err, small) {
+  if (err) return handleError(err);
+  // saved!
+});
+
+// or, for inserting large batches of documents
+Tank.insertMany([{ size: 'small' }], function(err) {
+
+});
+Note that no tanks will be created/removed until the connection your model uses is open. Every model has an associated connection. When you use mongoose.model(), your model will use the default mongoose connection.
+
+mongoose.connect('localhost', 'gettingstarted');
+If you create a custom connection, use that connection's model() function instead.
+
+var connection = mongoose.createConnection('mongodb://localhost:27017/test');
+var Tank = connection.model('Tank', yourSchema);
+
+Querying
+Finding documents is easy with Mongoose, which supports the rich query syntax of MongoDB. Documents can be retreived using each models find, findById, findOne, or where static methods.
+
+Tank.find({ size: 'small' }).where('createdDate').gt(oneYearAgo).exec(callback);
+See the chapter on queries for more details on how to use the Query api.
+
+Deleting
+Models have static deleteOne() and deleteMany() functions for removing all documents matching the given filter.
+
+Tank.deleteOne({ size: 'large' }, function (err) {
+  if (err) return handleError(err);
+  // deleted at most one tank document
+});
+Updating
+Each model has its own update method for modifying documents in the database without returning them to your application. See the API docs for more detail.
+
+Tank.updateOne({ size: 'large' }, { name: 'T-90' }, function(err, res) {
+  // Updated at most one doc, `res.modifiedCount` contains the number
+  // of docs that MongoDB updated
+});
+
+Documents
+Mongoose documents represent a one-to-one mapping to documents as stored in MongoDB. Each document is an instance of its Model.
+
+Retrieving
+There are many ways to retrieve documents from MongoDB. We won't cover that in this section. See the chapter on querying for detail.
+
+Updating
+There are a number of ways to update documents. We'll first look at a traditional approach using findById:
+
+Tank.findById(id, function (err, tank) {
+  if (err) return handleError(err);
+
+  tank.size = 'large';
+  tank.save(function (err, updatedTank) {
+    if (err) return handleError(err);
+    res.send(updatedTank);
+  });
+});
+You can also use .set() to modify documents. Under the hood, tank.size = 'large'; becomes tank.set({ size: 'large' }).
+
+Tank.findById(id, function (err, tank) {
+  if (err) return handleError(err);
+
+  tank.set({ size: 'large' });
+  tank.save(function (err, updatedTank) {
+    if (err) return handleError(err);
+    res.send(updatedTank);
+  });
+});
+This approach involves first retrieving the document from Mongo, then issuing an update command (triggered by calling save). However, if we don't need the document returned in our application and merely want to update a property in the database directly, Model#update is right for us:
+
+Tank.update({ _id: id }, { $set: { size: 'large' }}, callback);
+If we do need the document returned in our application there is another, often better, option:
+
+Tank.findByIdAndUpdate(id, { $set: { size: 'large' }}, { new: true }, function (err, tank) {
+  if (err) return handleError(err);
+  res.send(tank);
+});
+Overwriting
+You can overwrite an entire document using .set(). This is handy if you want to change what document is being saved in middleware.
+
+Tank.findById(id, function (err, tank) {
+  if (err) return handleError(err);
+  // Now `otherTank` is a copy of `tank`
+  otherTank.set(tank);
+});

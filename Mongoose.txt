@@ -105,4 +105,62 @@ Mongoose will emit an index event on the model when indexes are done building or
     console.log(error.message);
   });
 
-  
+  Virtuals
+Virtuals are document properties that you can get and set but that do not get persisted to MongoDB. The getters are useful for formatting or combining fields, while setters are useful for de-composing a single value into multiple values for storage.
+ var personSchema = new Schema({
+    name: {
+      first: String,
+      last: String
+    }
+  });
+
+  // compile our model
+  var Person = mongoose.model('Person', personSchema);
+
+   // create a document
+  var axl = new Person({
+    name: { first: 'Axl', last: 'Rose' }
+  });
+
+  define a fullName property that won't get persisted to MongoDB.
+
+personSchema.virtual('fullName').get(function () {
+  return this.name.first + ' ' + this.name.last;
+});
+Now, mongoose will call your getter function every time you access the fullName property:
+
+console.log(axl.fullName); // Axl Rose
+
+Options
+Schemas have a few configurable options which can be passed to the constructor or set directly:
+
+new Schema({..}, options);
+
+// or
+
+var schema = new Schema({..});
+schema.set(option, value);
+Valid options:
+
+autoIndex
+bufferCommands
+capped
+collection
+id
+_id
+minimize
+read
+writeConcern
+safe
+shardKey
+strict
+strictQuery
+toJSON
+toObject
+typeKey
+validateBeforeSave
+versionKey
+collation
+skipVersioning
+timestamps
+selectPopulatedPaths
