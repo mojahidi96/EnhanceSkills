@@ -1,0 +1,108 @@
+Defining your schema
+Everything in Mongoose starts with a Schema. Each schema maps to a MongoDB collection and defines the shape of the documents within that collection.
+ var mongoose = require('mongoose');
+  var Schema = mongoose.Schema;
+
+  var blogSchema = new Schema({
+    title:  String,
+    author: String,
+    body:   String,
+    comments: [{ body: String, date: Date }],
+    date: { type: Date, default: Date.now },
+    hidden: Boolean,
+    meta: {
+      votes: Number,
+      favs:  Number
+    }
+  });
+
+  The permitted SchemaTypes are:
+String
+Number
+Date
+Buffer
+Boolean
+Mixed
+ObjectId
+Array
+Decimal128
+Map
+
+Creating a model
+To use our schema definition, we need to convert our blogSchema into a Model we can work with. To do so, we pass it into mongoose.model(modelName, schema):
+
+  var Blog = mongoose.model('Blog', blogSchema);
+
+Instance methods
+Instances of Models are documents. Documents have many of their own built-in instance methods. We may also define our own custom document instance methods too.
+
+  // define a schema
+  var animalSchema = new Schema({ name: String, type: String });
+
+  // assign a function to the "methods" object of our animalSchema
+  animalSchema.methods.findSimilarTypes = function(cb) {
+    return this.model('Animal').find({ type: this.type }, cb);
+  };
+
+  Statics
+Adding static methods to a Model is simple as well. Continuing with our animalSchema:
+
+  // assign a function to the "statics" object of our animalSchema
+  animalSchema.statics.findByName = function(name, cb) {
+    return this.find({ name: new RegExp(name, 'i') }, cb);
+  };
+
+  var Animal = mongoose.model('Animal', animalSchema);
+  Animal.findByName('fido', function(err, animals) {
+    console.log(animals);
+  });
+
+  Query Helpers
+You can also add query helper functions, which are like instance methods but for mongoose queries. Query helper methods let you extend mongoose's chainable query builder API.
+
+  animalSchema.query.byName = function(name) {
+    return this.where({ name: new RegExp(name, 'i') });
+  };
+
+  var Animal = mongoose.model('Animal', animalSchema);
+
+  Animal.find().byName('fido').exec(function(err, animals) {
+    console.log(animals);
+  });
+
+  Animal.findOne().byName('fido').exec(function(err, animal) {
+    console.log(animal);
+  });
+
+  Indexes
+MongoDB supports secondary indexes. With mongoose, we define these indexes within our Schema at the path level or the schema level. Defining indexes at the schema level is necessary when creating compound indexes.
+
+  var animalSchema = new Schema({
+    name: String,
+    type: String,
+    tags: { type: [String], index: true } // field level
+  });
+
+  animalSchema.index({ name: 1, type: -1 }); // schema level
+When your application starts up, Mongoose automatically calls createIndex for each defined index in your schema. Mongoose will call createIndex for each index sequentially, and emit an 'index' event on the model when all the createIndex calls succeeded or when there was an error. While nice for development, it is recommended this behavior be disabled in production since index creation can cause a significant performance impact. Disable the behavior by setting the autoIndex option of your schema to false, or globally on the connection by setting the option autoIndex to false.
+
+  mongoose.connect('mongodb://user:pass@localhost:port/database', { autoIndex: false });
+  // or
+  mongoose.createConnection('mongodb://user:pass@localhost:port/database', { autoIndex: false });
+  // or
+  animalSchema.set('autoIndex', false);
+  // or
+  new Schema({..}, { autoIndex: false });
+Mongoose will emit an index event on the model when indexes are done building or an error occurred.
+
+  // Will cause an error because mongodb has an _id index by default that
+  // is not sparse
+  animalSchema.index({ _id: 1 }, { sparse: true });
+  var Animal = mongoose.model('Animal', animalSchema);
+
+  Animal.on('index', function(error) {
+    // "_id index cannot be sparse"
+    console.log(error.message);
+  });
+
+  
