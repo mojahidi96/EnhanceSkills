@@ -1,0 +1,54 @@
+QUESTIONS ABOUT GENERAL ARCHITECTURE
+
+What is a component, service, directive, pipe?
+What libraries/tools seeks to solve X problem?
+
+QUESTIONS ABOUT COMPONENTS/DIRECTIVES
+
+How can you use components? Is it viable to use something different than tag selectors?
+What are Angular life-cycle methods? Which ones do you know/have used?
+What is Content Projection?
+What are the ViewChild, ViewChildren, ContentChild, ContentChildren decorators? Whats the general use case?
+In which concrete cases would you use a directive?
+What is the main difference between structural directives and attribute directives?
+Can the same element have multiple components/directives associated?
+
+QUESTIONS ABOUT TEMPLATING
+
+What does the `[(hello)]=”world” thingy means? Can you simplify it?`
+What is a template reference variable? How do you use it? Do you know of directives that seems to create them?
+What is `$event` keyword-like thing used for?
+What is `ng-template` and `ng-container`?
+What is Angular template microsyntax about? Can you simplify a fully featured `ngFor` (e.g. `<li *ngFor=”let item of items; let i=index; let colored=odd; trackBy: trackById> {{ item.name }} </li>?
+
+QUESTIONS ABOUT SERVICES
+
+What is a provider? What are the ways I can create a provider?
+Why services seems to be singleton by default? How can I change it? Why would I change it?
+Can I have 2 services depending on each other? Why? Would you know some weird way to make it happen?
+What is an Injector?
+Does it matter in which modules I set the providers? What about the behavior of services in lazy-loaded modules?
+Does it matter in which order I set the providers? What happens?
+
+QUESTIONS ABOUT INTERNALS/OTHERS
+
+Have you worked with `ElementRef`, `ViewContainerRef`?
+What is a component factory? Why does it exists? Is it needed to know they exist in some edge use case?
+What is AOT? What is the core technique behind it?
+Why does Angular NEED `rxjs` and `zone` libraries?
+How does Change Detection in general work? What is the `OnPush` strategy? Which other services are available to help you tune detection?
+
+QUESTIONS ABOUT INTERNALS/OTHERS
+
+Have you worked with `ElementRef`, `ViewContainerRef`?
+What is a component factory? Why does it exists? Is it needed to know they exist in some edge use case?
+What is AOT? What is the core technique behind it?
+Why does Angular NEED `rxjs` and `zone` libraries?
+How does Change Detection in general work? What is the `OnPush` strategy? Which other services are available to help you tune detection?
+
+QUESTIONS ABOUT DEBUGGING (my experience)
+
+Angular doesn’t recognize an input binding. What is the most common culprit?
+You need to debug a run-time value in a component. What tools do you have? (`console.log`, viewing elements tab, `ng.probe` and Augury should be expected answers)
+You have a dreaded `ExpressionChangedAfterItHasBeenCheckedError`. What does it mean? How do you tackle it?
+
