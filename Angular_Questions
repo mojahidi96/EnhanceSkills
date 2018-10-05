@@ -1,16 +1,76 @@
 QUESTIONS ABOUT GENERAL ARCHITECTURE
 
-What is a component, service, directive, pipe?
-What libraries/tools seeks to solve X problem?
+Question: What is a component, service, directive, pipe?
+Answer: components => components are simply classes that are designated as a component with the help of a component decorator. Every component has a defined template which can communicate with the code defined in the component class. 
+
+Services => Instead of rewriting the same code, which creates redundancy, you can create a service file that can be imported to your components as needed. Services are commonly used for storing data and making HTTP calls.
+
+Directive => Angular Directive is basically a class with a @Directive decorator. 
+The Angular Directive can be classified into two types: structural and attribute directives.
+Structural directives alter layout by adding, removing, and replacing elements in DOM. *ngFor,*ngIf
+Attribute directive alter the appearance or behavior of an existing element. When you include attribute directives in templates, they look like regular HTML attributes. The ngModel directive, which implements two-way data binding, is an example of an attribute directive
+Pipes => Pipes are used to format the data before displaying in the View. Pipe is used by using |.
+Pipes in Angular give you an easy way to transform data directly in your templates. You can create your own custom pipes, and you can also use any of the following ones, which are part of the CommonModule
+
+Question: What libraries/tools seeks to solve X problem?
 
 QUESTIONS ABOUT COMPONENTS/DIRECTIVES
 
-How can you use components? Is it viable to use something different than tag selectors?
-What are Angular life-cycle methods? Which ones do you know/have used?
-What is Content Projection?
-What are the ViewChild, ViewChildren, ContentChild, ContentChildren decorators? Whats the general use case?
-In which concrete cases would you use a directive?
-What is the main difference between structural directives and attribute directives?
+Question: How can you use components? Is it viable to use something different than tag selectors?
+Question: What are Angular life-cycle methods? Which ones do you know/have used?
+
+Lifecycle sequence
+After creating a component/directive by calling its constructor, Angular calls the lifecycle hook methods in the following sequence at specific moments:
+
+Hook	        =>        Purpose and Timing
+ngOnChanges()          =>      Respond when Angular (re)sets data-bound input properties. The method receives a SimpleChanges object of current and previous property values.
+                               Called before ngOnInit() and whenever one or more data-bound input properties change.
+
+ngOnInit()	        =>      Initialize the directive/component after Angular first displays the data-bound properties and sets the directive/component's input properties.Called once, after the first ngOnChanges().
+
+ngDoCheck()	        =>      
+Detect and act upon changes that Angular can't or won't detect on its own.
+Called during every change detection run, immediately after ngOnChanges() and ngOnInit().
+
+ngAfterContentInit()	        =>      Respond after Angular projects external content into the component's view / the view that a directive is in. Called once after the first ngDoCheck().
+
+ngAfterContentChecked()	        =>      Respond after Angular checks the content projected into the directive/component.
+
+Called after the ngAfterContentInit() and every subsequent ngDoCheck().
+
+ngAfterViewInit()	        =>      
+Respond after Angular initializes the component's views and child views / the view that a directive is in.
+
+Called once after the first ngAfterContentChecked().
+
+ngAfterViewChecked()	        =>      
+Respond after Angular checks the component's views and child views / the view that a directive is in.
+
+Called after the ngAfterViewInit and every subsequent ngAfterContentChecked().
+
+ngOnDestroy()	        =>      
+Cleanup just before Angular destroys the directive/component. Unsubscribe Observables and detach event handlers to avoid memory leaks.
+
+Called just before Angular destroys the directive/component.
+
+Question: What is Content Projection?
+content projection to enable it to be customised by the component or developer who is using it.
+Projection is a very important concept in Angular. It enables developers to build reusable components and make applications more scalable and flexible. 
+Question: What are the ViewChild, ViewChildren, ContentChild, ContentChildren decorators? Whats the general use case?
+ViewChild => It is used to access Child Component in the Parent Component. Any directive, component, and element which is part of component template is accessed as ViewChild.
+if a parent component wants access of child component then it uses ViewChild or ContentChild.
+
+Question: In which concrete cases would you use a directive?
+Question: What is the main difference between structural directives and attribute directives?
+Structural directives: Structural directives are responsible for HTML layout. They shape or reshape the DOM's structure, typically by adding, removing, or manipulating elements. As with other directives, you apply a structural directive to a host element.
+
+Attribute directive : An Attribute directive changes the appearance or behavior of a DOM element.
+There are three kinds of directives in Angular:
+
+Components—directives with a template.
+Structural directives—change the DOM layout by adding and removing DOM elements.
+Attribute directives—change the appearance or behavior of an element, component, or another directive.
+
 Can the same element have multiple components/directives associated?
 
 QUESTIONS ABOUT TEMPLATING
@@ -38,13 +98,6 @@ What is AOT? What is the core technique behind it?
 Why does Angular NEED `rxjs` and `zone` libraries?
 How does Change Detection in general work? What is the `OnPush` strategy? Which other services are available to help you tune detection?
 
-QUESTIONS ABOUT INTERNALS/OTHERS
-
-Have you worked with `ElementRef`, `ViewContainerRef`?
-What is a component factory? Why does it exists? Is it needed to know they exist in some edge use case?
-What is AOT? What is the core technique behind it?
-Why does Angular NEED `rxjs` and `zone` libraries?
-How does Change Detection in general work? What is the `OnPush` strategy? Which other services are available to help you tune detection?
 
 QUESTIONS ABOUT DEBUGGING (my experience)
 
