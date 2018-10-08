@@ -96,6 +96,8 @@ Authorization: After logging in successfully, the authenticated or genuine user 
 
 26. What is AOT Compilation?
 Every angular application gets compiled internally. The angular compiler takes javascript code, compiles it and produces javascript code again. Ahead-of-Time Compilation does not happen every time or for every user, as is the case with Just-In-Time (JIT) Compilation. 
+Just-in-Time (JIT), which compiles your app in the browser at runtime.
+Ahead-of-Time (AOT), which compiles your app at build time.
 
 27. What is Redux? 
 It is a library which helps us maintain the state of the application. Redux is not required in applications that are simple with the simple data flow, it is used in Single Page Applications that have complex data flow. 
