@@ -14,8 +14,7 @@ Invoked when the change detector of the given component is invoked. It allows us
 
 Important
 ngDoCheck and ngOnChanges should not be implemented together on the same component.
-Note
-We will cover this hook in more detail in the Advanced Components section at the end of this course.
+
 ngOnDestroy
 This method will be invoked just before Angular destroys the component.
 Use this hook to unsubscribe observables and detach event handlers to avoid memory leaks.
@@ -26,7 +25,7 @@ These hooks are only called for components and not directives.
 Note
 We will cover the difference between Components and Directives in the next section.
 ngAfterContentInit
-Invoked after Angular performs any content projection into the components view (see the previous lecture on Content Projection for more info).
+Invoked after Angular performs any content projection into the components view.
 
 ngAfterContentChecked
 Invoked each time the content of the given component has been checked by the change detection mechanism of Angular.
