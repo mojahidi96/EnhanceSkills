@@ -1,0 +1,71 @@
+Angular has come out with some amazing new features in version 6.0.0, especially in Angular-cli. Now, with Angular 6, you can easily update your old packages
+
+ 1.       ng add
+ng add is a new command in Angular-cli that helps you install and download new packages in your angular apps.
+    ng add @angular/element
+
+ 2.     ng update
+ng update is a new Angular-cli command too. It’s used to update and upgrade your packages. It’s really helpful, for example, when you want to upgrade from Angular 5 to Angular 6
+    ng update @angular/core
+
+ 3.     Declaring the providers inside the service itself
+Before this update, you had to the declare the providers array in app.module.ts
+
+Now with Angular 6, you can provide your service inside the supervisor itself by putting the providedIn:root property within the "@injectable" decorator.
+        @injectable({
+            providedIn:'root'
+        })
+
+4. Use ng-template instead of template directive
+You can use ng-template to render the HTML instead of the template tag in the new version of Angular. ng-template is an Angular element, and it works when it is used with a structural directive such as *ngFor and *ngIf
+    <div *ngIf = "authenticated else unauthenticated">
+welcome
+    </div>
+    <ng-template #unauthenticated>
+    <p> please login</p>
+    </ng-template>
+
+5. Angular elements
+Angular 6 introduced us to Angular elements. You’re able to render your Angular elements as native web elements, and they’re interpreted as trusted HTML elements.
+        ng add @angular/element
+Import createCustomElement in your component.
+        import {createCustomElement} from '@angular/elements'
+Then create your customized element!
+
+    import {DomSanitizer} from '@angular/platfrom-browser'
+    import {myElementContent} from './alert/alert.component'
+
+    @component({
+        selector : 'app-root',
+        template: `<div [innerHTML] = 'content'>
+        <div>`,
+        styleUrls : ['./app.component.css']
+    })
+    export class AppComponent{
+        content = null
+        constructor(private injector:Injector, domsanitizer:DomSanitizer){
+            const myElement = createCustomElement(myElementContent,{injector:this.injector})
+            customElement.define('my-elem',myElement)
+            this.content = domsanitizer.bypassSecurityTrustHtml("<my-elem name='Said'></my-elem>")
+        }
+    }
+-----------
+myElementComponent.ts
+            import {component,OnInit, Input} from '@angular/core';
+            @Component({
+                selector:'app-alert',
+                template: `<div> <h2> Hello {{name}}!</h2>
+                </div>`,
+                styleUrls:['./alert.component.css']
+            })
+            export class myElemComponent implement OnInit{
+                @Input() name : String
+                constructor(){}
+                ngOnInit(){}
+            }
+
+
+Note: you have to implement the DomSanitizer method from @angular/platform-browser to make your custom element a trusted HTML tag .
+
+6. Upgrading to RxJS 6.0.0
+Angular 6 uses the latest version of Rxjs library. Now you can enjoy the newest features of RxJS 6 in your Angular app :)
