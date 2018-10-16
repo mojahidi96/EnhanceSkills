@@ -69,3 +69,50 @@ Note: you have to implement the DomSanitizer method from @angular/platform-brows
 
 6. Upgrading to RxJS 6.0.0
 Angular 6 uses the latest version of Rxjs library. Now you can enjoy the newest features of RxJS 6 in your Angular app :)
+====================================
+
+1. TypeScript 2.7+ support
+With the support for 2.7 in place, now it will be much easier to code with conditional type declarations, default declarations and strict class initialization. For complete details of TypeScript 2.7 kindly refer link.
+
+2.  Elements
+This package is primarily designed to take an advantage of web components that are being supported by all modern browsers(Except Edge). This will allow you to create an Angular component and publish it as a Web Component, which can be used in any HTML page.
+
+Transforming a component to a custom element provides an easy path to creating dynamic HTML content in your Angular app.
+
+3. Stable Angular Material with CDK ( Component Development Kit)
+The initial version of Angular Material2 was released in March 2016 but was lacking in the number of components, stability, and compatibility with latest angular versions. Now it is more stable and compatible with Angular 6. Many Angular Material2 components are built on top CDK Toolkit which is the Design agnostic toolkit. With this release CDK Toolkit is stable and Developers can use this toolkit to build their own components with less effort as this toolkit already has most of the commonly used utilities to build components.
+
+4. Ivy renderer
+Ivy Renderer is new rendering engine which is designed to be backward compatible with existing render and focused to improve the speed of rendering and it optimizes the size of the final package. For Angular, this will not be default renderer, but you can manually enable it in compiler options. I will be covering more details about Ivy render in some another blog.
+
+5. Bazel Compiler
+Bazel is a build system used for nearly all software built at Google. With this release, we will start having the Bazel compiler support. When you compile the code with Bazel Compiler, you will recompile entire code base, but it compiles only with necessary code. It uses advanced local and distributed caching, optimized dependency analysis and parallel execution. For more detail kindly refer the link
+
+6. Addition of navigationSource and restoredState to NavigationStart
+Currently, in NavigationStart there is no way to know if navigation was triggered imperatively or via the location change. With navigationSource in place, the source of the navigation e.g scroll position or URL/URI change can be identified. restoredState will give the restored navigation id which leads to current navigation. These two properties help us to handle multiple use cases in routing.
+
+NgModelChange – Now this event is emitted after value and validity are updated on its control. Previously, it was emitted before updated. As the updated value of the control is available, the handler will become more powerful
+
+Form Control statusChanges – Angular 6 emits an event of “PENDING” when we call AbstractControl markAsPending.
+
+Form pattern validators improvement – Before Angular 6, pattern validators should not contain line boundaries i.e  ^ and/or & and/or $. Previously Validator used to add these line boundaries to the validation pattern automatically without cross-checking the existence of these line boundaries.Because of this when the developer provides line boundaries in the validator pattern Validations used to fail. Now validators checks before adding line boundaries that mean Validators will work as expected with or without line boundaries
+
+Added multiple validators for array method of FormBuilder – Before Angular 6, there was no way to pass multiple validators to the formBuilder.array method which is allowed now
+
+New optional generic type ElementRef – This optional generic type will help to get hold of the native element of given custom Element as ElementRef Type
+
+7. Features which are New in Angular CLI 1.7 and Supporting to Angular 6
+Schematics Support – Schematics is a workflow technology for the modern web application development which can apply transforms to your project, like create a new component, or updating your code to fix breaking changes in a dependency Or to add a new configuration option or new framework to an existing project. This helps to build your own scaffolding to the application to help developers in Ease of Use and Development and Reusability.
+
+ng update – We have now a command to automatically update the Angular dependencies of our CLI applications. All your @angular/* dependencies will be updated to the latest stable version which includes all the core packages in your dependencies and devDependencies like rxjs, zone, typescript etc.., and also the CLI itself. This feature saves some effort in migration to next stable version as the developer does not need to manually identify and update the versions of peer dependencies.
+
+8. Service worker safety
+Service worker is a script that runs in the web browser. It also manages caching for an application. But sometimes e.g. when we are deploying the latest version of the application we may need to deactivate/uninstall the existing service worker. At this point of time, there is no straight way to deactivate service worker. To full fill this need, this new release contains new script file safety-worker.js which will be part of production bundle which in turn helps us to unregister existing service worker.
+
+9. App Budgets
+Many of us face challenges of growing app size as we add more functionality despite setting some threshold levels at the starting of app development. So far there is no mechanism to warn us about growing app size. App Budgets is a feature in the Angular CLI which allows you to set thresholds for the size of bundles. We will able to configure error messages/warning messages when bundle size grows beyond the configured threshold.
+
+Few Minor Enhancements
+Support for singleline, multiline & jsdoc comments in the code
+Add resource inlining to ngc – When angularCompilerOptions { enableResourceInlining: true }, we replace all templateUrl and styleUrls properties in @Component with template/styles
+Better debug error messaging with NgIf when it uses non-template elements
