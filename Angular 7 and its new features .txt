@@ -1,0 +1,69 @@
+What's new in Angular 7?
+
+Angular team is mainly focused on the Ivy project, rewriting the Angular compiler and runtime code to make it smaller, better, faster. But Ivy is not ready for prime time yet.
+
+TypeScript 3.1 support
+
+Angular compilation options
+As you may know, you can define compilerOptions for TypeScript and angularCompilerOptions for Angular in your tsconfig.json files:
+
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    // ...
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "preserveWhitespaces": true,
+    // ...
+  }
+}
+
+TypeScript allows you to extend the compilerOptions of another file 
+
+Ivy progress
+The rewrite is making progress, but Ivy is still not usable in this release. 
+ngtsc:(Angular TypeScript Compiler)  the compiler that compiles your Angular application and generates JavaScript from your HTML templates. This piece of code has made good progress but still misses a few features.
+ngcc:(Angular Compatibility Compiler) a tool that explores all the dependencies you have, to convert existing code into “Ivy compatible” code. 
+the renderer itself, which takes the generated code and makes the magic happen at runtime. 
+But you can check it out yourself, as the CLI added an --experimental-ivy flag to generate an application with the configuration needed to try it.
+ng new ivy-test --experimental-ivy
+cd ivy-test
+$(npm bin)/ngcc
+ng serve --aot
+
+Slots with Angular Elements
+It is possible to use ViewEncapsulation.ShadowDom since Angular 6.1, 
+which is great for Angular Elements (Angular components packaged as Web components that you can use alone). But there was a missing feature to be able to use <slot>, a new standard HTML element, introduced by the Web Component specification. This feature is now available, enabling components with a template like:
+
+@Component({
+  selector: 'ns-card',
+  template: `
+    <header>
+      <slot name="card-header"></slot>
+    </header>
+    <slot></slot>`,
+  encapsulation: ViewEncapsulation.ShadowDom,
+  styles: []
+})
+export class CardComponent {
+}
+That can later be used as an Angular Element like this:
+
+<ns-card>
+  <span slot="card-header">Become a ninja with Angular</span>
+  <p>A wonderful book from Ninja Squad</p>
+</ns-card>
+
+Deprecations
+As it’s usually the case with major releases, a few things have been deprecated. If you are using <ngForm> to declare a form in your template (you don’t have to, as form also activates the NgForm directive), this selector is now deprecated and should be replaced by <ng-form>.
+
+
+
+
+============================================================================================================
+Custom elements: A set of JavaScript APIs that allow you to define custom elements and their behaviour, which can then be used as desired in your user interface.
+Shadow DOM: A set of JavaScript APIs for attaching an encapsulated "shadow" DOM tree to an element — which is rendered separately from the main document DOM — and controlling associated functionality. In this way you can keep an element's features private, so they can be scripted and styled without the fear of collision with other parts of the document.
+HTML templates: The <template> and <slot> elements enable you to write markup templates that are not displayed in the rendered page. These can then be reused multiple times as the basis of a custom element's structure.
+============================================================================================================
