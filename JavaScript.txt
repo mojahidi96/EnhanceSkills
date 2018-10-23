@@ -47,3 +47,9 @@ Also take notice filter does not update the existing array it will return a new 
 3. Map:- it generate a new array based on your existing array.
 
 4. Reduce:- reduce the array to one single value.
+
+
+JavaScript Hoisting
+n JavaScript, a variable can be used before it has been declared.
+Hoisting is JavaScript's default behavior of moving all declarations to the top of the current scope 
+Variables and constants declared with let or const are not hoisted!

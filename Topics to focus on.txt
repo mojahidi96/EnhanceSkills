@@ -1,0 +1,4 @@
+ElasticSearch
+PWA & Service Worker
+Server side renderin(Angular Universal)
+Secure NodeJS App
