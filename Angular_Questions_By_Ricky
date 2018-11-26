@@ -1,0 +1,34 @@
+What is angular ?
+how is angular 2 different from angular js ?
+lifecycle hooks of angular ?
+Application flow of angular application ?
+how are components different from directives ?
+Key features of angular 2 ?
+What are observables ? 
+difference between observable and promise ?
+why prefer observable over promise ?
+what is map function and its usage ?
+what is filter function and its usage ?
+how can we get data from observable without subscribing ?
+how can we create angular app which is SEO friendly ?
+what is DI ?
+what is closure ?
+difference between angular 4 and 6 ?
+what is activated route and routeState ?
+what is lazing loading and how to achieve it ?
+what is hostbinding & hostlistners?
+what are different types of form in angular ?
+what are structural directives ?
+what is state management how do we achieve it ?
+what are actions , reducers, effects ?
+what are selectors in ngrx store ?
+what is subject in rxjs ?
+how to make the application available offline ? what is ngworker ?
+what is progressive web apps (PWA)?
+why is changeDetectionStatergy used ?
+diferent ways of sharing data between components ?
+how to isolate a service injection to specific module ?
+how to authenticate routes in angular 2 ?
+what is webworked used for ?
+what to upgrade from angular 4/5 to 6 ?
+how to create custom libraries in angular ?
