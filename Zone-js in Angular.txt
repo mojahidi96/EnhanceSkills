@@ -1,0 +1,17 @@
+How Angular uses NgZone/Zone.js for Dirty Checking
+-Knowing when to update the UI is one of the important issues a JavaScript framework must address.
+-Different JavaScript frameworks have different methods of refreshing the UI when a data state changes.
+-Reactjs uses setState() method from the Component class to know that a property in the state object is being updated.
+--class Component {
+    setState(state = {}) {
+        // assigns the new state to the state object
+        this.state = Object.assign(this.state, state)
+        // updates the UI
+        this.render()
+    }
+--}
+-AngularJS uses Scopes and Digest. Scopes are like plain JS objects but have added functionality that enables it to watch data properties for changes. $digest and $watch methods are implemented to execute a digest cycle and dirty checking.
+-In Angular, Zone.js is used to detect when certain async operations occur to trigger a change detection cycle.
+--What is Zone.js?--
+
+-We developed Zone.js as part of the Angular project. The original goal was not to control time but to know when async operations complete, so we can run Angular’s change detection and update the view.
