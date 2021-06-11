@@ -1,0 +1,63 @@
+https://www.slideshare.net/Simplilearn/what-is-docker-what-is-docker-and-how-it-works-docker-tutorial-for-beginners-simplilearn/Simplilearn/what-is-docker-what-is-docker-and-how-it-works-docker-tutorial-for-beginners-simplilearn
+
+DevOps is a collaboration between development and operation teams which enable continues delivery of applicatoins and services to our end users
+			-Development- (DevOps) -Operation-
+
+Docker is a tools which is used to automate the deployment of applications in lightweigth container so that applications can work efficiently in different environmets
+
+Docker Engine or Docker is the base engine installed on your host machine to build and run containers using Docker components and services
+------------------------tutorialpoint-----------------
+Docker is a container management service. The keywords of Docker are develop, ship and run anywhere. The whole idea of Docker is for developers to easily develop applications, ship them into containers which can then be deployed anywhere.
+--Features of Docker
+Docker has the ability to reduce the size of development by providing a smaller footprint of the operating system via containers.
+
+With containers, it becomes easier for teams across different units, such as development, QA and Operations to work seamlessly across applications.
+
+You can deploy Docker containers anywhere, on any physical and virtual machines and even on the cloud.
+
+Since Docker containers are pretty lightweight, they are very easily scalable.
+
+-Components of Docker
+
+Docker for Mac 
+
+Docker for Linux 
+
+Docker for Windows 
+
+Docker Engine − It is used for building Docker images and creating Docker containers.
+
+Docker Hub − This is the registry which is used to host various Docker images.
+
+Docker Compose − This is used to define applications using multiple Docker containers.
+
+In Docker, everything is based on Images. An image is a combination of a file system and parameters
+		--docker run hello-world 
+The Docker command is specific and tells the Docker program on the Operating System that something needs to be done.
+
+The run command is used to mention that we want to create an instance of an image, which is then called a container.
+
+Finally, "hello-world" represents the image from which the container is made.
+
+To see the list of Docker images on the system
+docker images
+TAG − This is used to logically tag images.
+
+Image ID − This is used to uniquely identify the image.
+
+Created − The number of days since the image was created.
+
+Virtual Size − The size of the image.
+
+Downloading Docker Images
+Images can be downloaded from Docker Hub using the Docker run command. 
+docker run image 
+Image − This is the name of the image which is used to run the container.
+
+Removing Docker Images
+The Docker images on the system can be removed via the docker rmi command.
+docker rmi ImageID
+docker inspect
+This command is used see the details of an image or container.
+docker inspect Repository 
+Repository − This is the name of the Image.
